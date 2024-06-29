@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS submissions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     problem_id INT,
     user_input TEXT,
+    request_text TEXT,
     result TEXT,
     submission_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -28,4 +29,4 @@ CREATE TABLE IF NOT EXISTS answers (
 );
 
 INSERT INTO problems (title) VALUES ('Sample Problem 1');
-INSERT INTO submissions (problem_id,user_input , result) VALUES (1, 'Sample Submission 1', 'Sample Response 1');
+-- INSERT INTO submissions (problem_id, user_input ,request_text, result) VALUES (1, 'Sample Submission 1','sample' 'Sample Response 1');

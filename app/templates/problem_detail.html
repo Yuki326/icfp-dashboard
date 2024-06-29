@@ -30,12 +30,14 @@
     <table>
         <tr>
             <th>提出</th>
+            <th>リクエスト</th>
             <th>結果</th>
             <th>提出日時</th>
         </tr>
         {% for submission in submissions %}
             <tr>
                 <td>{{ submission.user_input }}</td>
+                <td>{{ submission.request_text }} </td>
                 <td>{{ submission.result }}</td>
                 <td>{{ submission.created_at }}</td>
             </tr>

@@ -31,7 +31,7 @@ def home():
 def login():
     if request.method == 'POST':
         password = request.form['password']
-        if password == os.environ.get('SITE_PASSWORD'):
+        if password == 'hicoder':
             flash('Logged in successfully.')
             session['logged_in'] = True
             return redirect(url_for('home'))
@@ -73,13 +73,12 @@ def problem_detail(problem_id):
             'Content-Type': 'text/plain'
         }
         data = f"solve {problem_title} {user_input}"
-        data = encode_text(data)
         
-        response = requests.post(url, headers=headers, data=data)
+        response = requests.post(url, headers=headers, data=encode_text(data))
         # 提出と結果を保存
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO submissions (problem_id, user_input, result) VALUES (%s, %s, %s)",
-                    (problem_id, data, response.text))
+        cur.execute("INSERT INTO submissions (problem_id, user_input,request_text, result) VALUES (%s, %s, %s,%s)",
+                    (problem_id, data, encode_text(data), response.text))
         mysql.connection.commit()
         return redirect(url_for('problem_detail', problem_id=problem_id))
 
