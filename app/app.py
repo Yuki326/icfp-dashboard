@@ -66,13 +66,15 @@ def problem_detail(problem_id):
     problem_title = cur.fetchone()['title']
 
     if request.method == 'POST':
-        user_input = encode_string(request.form['user_input'])
+        user_input = request.form['user_input']
         url = "https://boundvariable.space/communicate"
         headers = {
             'Authorization': f'Bearer {BEARER_TOKEN}',
             'Content-Type': 'text/plain'
         }
         data = f"solve {problem_title} {user_input}"
+        data = encode_text(data)
+        
         response = requests.post(url, headers=headers, data=data)
         # 提出と結果を保存
         cur = mysql.connection.cursor()
