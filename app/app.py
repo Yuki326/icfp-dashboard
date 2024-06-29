@@ -39,17 +39,6 @@ def login():
             flash('Invalid username or password.')        
     return render_template('login.html')
 
-@app.route('/problem/<int:problem_id>')
-def problem(problem_id):
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute('SELECT * FROM problems WHERE id = %s', (problem_id,))
-    problem = cur.fetchone()
-    cur.execute('SELECT * FROM submissions WHERE problem_id = %s', (problem_id,))
-    submissions = cur.fetchall()
-    cur.execute('SELECT * FROM answers WHERE problem_id = %s', (problem_id,))
-    answers = cur.fetchall()
-    return render_template('problem.html', problem=problem, submissions=submissions, answers=answers)
-
 @app.route('/add_problem', methods=['POST'])
 def add_problem():
     name = request.form['title']
@@ -58,18 +47,6 @@ def add_problem():
     mysql.connection.commit()
     return redirect(url_for('home'))
 
-def encode_string(s: str) -> str:
-    table = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`|~"
-    result = []
-    for x in s:
-        try:
-            if 33 <= ord(x) <= 126:
-                result.append(table[ord(x) - 33])
-            else:
-                result.append('?')
-        except IndexError:
-            result.append('?')
-    return ''.join(result)
 
 mapping = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`|~ \n"
 
