@@ -31,7 +31,7 @@ def home():
 def login():
     if request.method == 'POST':
         password = request.form['password']
-        if password == 'hicoder':
+        if password == os.environ.get('SITE_PASSWORD'):
             flash('Logged in successfully.')
             session['logged_in'] = True
             return redirect(url_for('home'))
