@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Problem</title>
+</head>
+<body>
+    <h1>問題一覧</h1>
+    <form action="{{ url_for('add_problem') }}" method="post">
+        <label for="title">新しい問題:</label>
+        <input type="text" id="title" name="title" required>
+        <button type="submit">追加</button>
+    </form>
+    <ul>
+        {% for problem in problems %}
+        <li>
+            <a href="{{ url_for('problem_detail', problem_id=problem.id) }}">{{ problem.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

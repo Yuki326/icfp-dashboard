@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem Detail</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <a href="/">トップページへ戻る</a>
+
+    <h1>提出：{{ problem_title }}</h1>
+    
+    <form method="POST">
+        <label for="user_input">Your Answer:</label><br>
+        <input type="text" id="user_input" name="user_input"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <table>
+        <tr>
+            <th>提出</th>
+            <th>結果</th>
+            <th>提出日時</th>
+        </tr>
+        {% for submission in submissions %}
+            <tr>
+                <td>{{ submission.user_input }}</td>
+                <td>{{ submission.result }}</td>
+                <td>{{ submission.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
